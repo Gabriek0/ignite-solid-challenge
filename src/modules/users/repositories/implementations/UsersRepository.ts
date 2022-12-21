@@ -44,19 +44,19 @@ class UsersRepository implements IUsersRepository {
   }
 
   turnAdmin(receivedUser: User): User {
-    const users = this.users.filter((usr) => usr.id === receivedUser.id);
+    const users = this.users.filter((usr) => usr.id !== receivedUser.id);
 
-    const updatedUserToAdmin = new User();
+    const admin = new User();
 
-    Object.assign(updatedUserToAdmin, {
+    Object.assign(admin, {
       ...receivedUser,
       admin: true,
     });
 
-    users.push(updatedUserToAdmin);
+    users.push(admin);
     this.users = users;
 
-    return updatedUserToAdmin;
+    return admin;
   }
 
   list(): User[] {
