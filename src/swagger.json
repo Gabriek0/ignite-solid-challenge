@@ -11,7 +11,7 @@
   "paths": {
     "/users": {
       "post": {
-        "tags": ["User"],
+        "tags": ["Users"],
         "summary": "Create a new user",
         "description": "Create a new user",
         "requestBody": {
@@ -45,7 +45,7 @@
         }
       },
       "get": {
-        "tags": ["User"],
+        "tags": ["Users"],
         "summary": "List all users",
         "description": "List all users",
         "parameters": [
@@ -66,6 +66,72 @@
           },
           "400": {
             "description": "Error when listing users"
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get a specific user",
+        "description": "Get a specific user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "Insert the user_id that you want to get informations",
+            "required": "true",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A specific user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
